@@ -14,7 +14,7 @@ menu: nav/home.html
     ::-webkit-scrollbar { width: 10px; }
     ::-webkit-scrollbar-track { background: #f1f1f1; }
     ::-webkit-scrollbar-thumb { background: #2563EB; border-radius: 5px; }
-    ::-webkit-scrollbar-thumb:hover { background: #1E40AF; }
+    ::-webkit-scrollbar-thumb:hover { background: #b1dafbff; }
 
     /* Chatbot Styles */
     #help-button {
@@ -460,7 +460,7 @@ menu: nav/home.html
 </div>
 
 <!-- Hero Section -->
-<section id="welcome" class="h-screen flex flex-col items-center justify-center text-center bg-cover bg-center relative" style="background-image: url('https://scitechdaily.com/images/DNA-Genetics.gif');">
+<section id="welcome" class="h-screen flex flex-col items-center justify-center text-center bg-cover bg-center relative" style="background-image: url('https://i.pinimg.com/originals/c1/0a/af/c10aaf1d651e144a88ef16475917c3b0.gif');">
   <div class="absolute inset-0 bg-black opacity-50 pointer-events-none"></div>
   <div class="relative z-10">
     <h1 class="text-6xl font-bold text-white neon-glow">
