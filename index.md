@@ -13,8 +13,8 @@ menu: nav/home.html
     /* Scrollbar Styling */
     ::-webkit-scrollbar { width: 10px; }
     ::-webkit-scrollbar-track { background: #f1f1f1; }
-    ::-webkit-scrollbar-thumb { background: #2563EB; border-radius: 5px; }
-    ::-webkit-scrollbar-thumb:hover { background: #b1dafbff; }
+    ::-webkit-scrollbar-thumb { background: #5176c8ff; border-radius: 5px; }
+    ::-webkit-scrollbar-thumb:hover { background: #011a2eff; }
 
     /* Chatbot Styles */
     #help-button {

@@ -1,9 +1,9 @@
-title: GeneScope
+title: StockSmart
 description: "Social Media for Del Norte High School"
 owner_name: Avika Prasad
 github_username: avikaprasad22
-github_repo: "genescope"
-baseurl: "/genescope"
+github_repo: "walmart_frontend"
+baseurl: "/stocksmart"
 future: true
 remote_theme: jekyll/minima
 minima:
