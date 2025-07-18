@@ -481,7 +481,7 @@ menu: nav/home.html
       <div class="card">
         <span></span>
         <div class="content flex flex-col items-center justify-center text-center">
-          <div class="text-2xl">Risk Quiz</div>
+          <div class="text-2xl">Feature 1</div>
           <p class="text-sm font-normal mt-2 px-4">Explore DNA sequencing processes.</p>
         </div>
       </div>
@@ -490,7 +490,7 @@ menu: nav/home.html
       <div class="card">
         <span></span>
         <div class="content flex flex-col items-center justify-center text-center">
-          <div class="text-2xl">Trivia Challenge</div>
+          <div class="text-2xl">Feature 2</div>
           <p class="text-sm font-normal mt-2 px-4">Test your knowledge on genetic research breakthroughs.</p>
         </div>
       </div>
@@ -499,7 +499,7 @@ menu: nav/home.html
       <div class="card">
         <span></span>
         <div class="content flex flex-col items-center justify-center text-center">
-          <div class="text-2xl">Gene Explorer</div>
+          <div class="text-2xl">Feature 3</div>
           <p class="text-sm font-normal mt-2 px-4">Learn about the effects of different gene mutations on the body.</p>
         </div>
       </div>
