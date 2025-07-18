@@ -466,7 +466,7 @@ menu: nav/home.html
     <h1 class="text-6xl font-bold text-white neon-glow">
       <span id="typewriter"></span>
     </h1>
-    <h2 class="text-2xl mt-4 text-white opacity-80">Enhancing Customer + Employee expereinces at</h2>
+    <h2 class="text-2xl mt-4 text-white opacity-80">Enhancing Customer + Employee experiences at</h2>
     <center>
     <img src="{{site.baseurl}}/images/walmart.png">
     </center>
@@ -536,7 +536,7 @@ menu: nav/home.html
       <span class="shadow"></span>
     </div>
   </div>
-  <p>Click the pyramid to speak with ANNIE</p>
+  <h1>Click the pyramid to speak with ANNIE</h1>
   <button id="stopSpeakingBtn">🛑 Stop Speaking</button>
 
 </div>
