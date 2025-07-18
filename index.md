@@ -1,6 +1,6 @@
 ---
 layout: tailwind
-title: Welcome to GeneScope
+title: StockSmart for Walmart
 search_exclude: false
 hide: true
 show_reading_time: false
@@ -466,7 +466,10 @@ menu: nav/home.html
     <h1 class="text-6xl font-bold text-white neon-glow">
       <span id="typewriter"></span>
     </h1>
-    <h2 class="text-2xl mt-4 text-white opacity-80">Igniting Curiosity, Advancing Science</h2>
+    <h2 class="text-2xl mt-4 text-white opacity-80">Enhancing Customer + Employee expereinces at</h2>
+    <center>
+    <img src="{{site.baseurl}}/images/walmart.png">
+    </center>
   </div>
 </section>
 
@@ -571,7 +574,7 @@ setInterval(updateTime, 1000);
 <!-- Typewriter Script -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  const text = "Welcome to GeneScope";
+  const text = "Welcome to StockSmart";
   let index = 0;
   const speed = 100;
   const typewriter = document.getElementById("typewriter");
