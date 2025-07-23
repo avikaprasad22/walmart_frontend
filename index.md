@@ -514,7 +514,7 @@ menu: nav/home.html
 
 <div id="chat-container">
   <div id="chat-header">
-    <h4>Annie</h4>
+    <h4>AI-Assistant</h4>
     <button id="close-chat">×</button>
   </div>
   <div id="chat-box"></div>
@@ -522,23 +522,6 @@ menu: nav/home.html
     <input type="text" id="user-input" placeholder="Type your message..." />
     <button id="send-message-button">Send</button>
   </div>
-</div>
-
-<!-- ANNIE--->
-
-<div id="pyricmind-container">
-  <div id="loader" class="pyramid-loader">
-    <div class="wrapper" id="pyramidWrapper">
-      <span class="side side1"></span>
-      <span class="side side2"></span>
-      <span class="side side3"></span>
-      <span class="side side4"></span>
-      <span class="shadow"></span>
-    </div>
-  </div>
-  <h1>Click the pyramid to speak with ANNIE</h1>
-  <button id="stopSpeakingBtn">🛑 Stop Speaking</button>
-
 </div>
 
 
