@@ -473,40 +473,50 @@ menu: nav/home.html
   </div>
 </section>
 
-<!-- Interactive Activities Section -->
-<section id="ai-solutions" class="py-20 bg-gray-900">
-  <h2 class="text-5xl font-bold text-center text-white mb-10 fade-in">Interactive Activities</h2>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mx-auto max-w-6xl place-items-center">
-    <a href="{{ site.baseurl }}/risk-quiz/" class="block">
-      <div class="card">
-        <span></span>
-        <div class="content flex flex-col items-center justify-center text-center">
-          <div class="text-2xl">Feature 1</div>
-          <p class="text-sm font-normal mt-2 px-4">Explore DNA sequencing processes.</p>
-        </div>
+<section id="ai-solutions" class="py-20 bg-[#1e1e1e] text-white">
+  <h2 class="text-4xl font-extrabold text-center mb-12">Explore Our Interactive Tools</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto px-6">
+    <!-- feature 1 - Blue -->
+    <div class="rounded-xl bg-[#0071ce] p-6 text-white shadow-xl flex flex-col justify-between min-h-[250px]">
+      <div class="flex items-center gap-2 mb-4">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.382l6.553 3.276A1 1 0 0018 15V3z" clip-rule="evenodd" fill-rule="evenodd" />
+        </svg>
+        <p class="text-lg font-semibold">FEATURE</p>
       </div>
-    </a>
-    <a href="{{ site.baseurl }}/trivia" class="block">
-      <div class="card">
-        <span></span>
-        <div class="content flex flex-col items-center justify-center text-center">
-          <div class="text-2xl">Feature 2</div>
-          <p class="text-sm font-normal mt-2 px-4">Test your knowledge on genetic research breakthroughs.</p>
-        </div>
+      <p class="text-sm mb-4">Description</p>
+      <div class="flex justify-between text-sm underline">
+        <a href="{{ site.baseurl }}/risk-quiz/">Take a Look</a>
       </div>
-    </a>
-    <a href="{{ site.baseurl }}/genes" class="block">
-      <div class="card">
-        <span></span>
-        <div class="content flex flex-col items-center justify-center text-center">
-          <div class="text-2xl">Feature 3</div>
-          <p class="text-sm font-normal mt-2 px-4">Learn about the effects of different gene mutations on the body.</p>
-        </div>
+    </div>
+    <!-- feature 2 - Yellow -->
+    <div class="rounded-xl bg-[#ffc220] text-black p-6 shadow-xl flex flex-col justify-between min-h-[250px]">
+      <div class="flex items-center gap-2 mb-4">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.382l6.553 3.276A1 1 0 0018 15V3z" clip-rule="evenodd" fill-rule="evenodd" />
+        </svg>
+        <p class="text-lg font-semibold">FEATURE</p>
       </div>
-    </a>
+      <p class="text-sm mb-4">Description</p>
+      <div class="flex justify-between text-sm underline">
+        <a href="{{ site.baseurl }}/trivia">Take a Look</a>
+      </div>
+    </div>
+    <!-- feature 3 - White -->
+    <div class="rounded-xl bg-white text-black p-6 shadow-xl flex flex-col justify-between min-h-[250px]">
+      <div class="flex items-center gap-2 mb-4">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.382l6.553 3.276A1 1 0 0018 15V3z" clip-rule="evenodd" fill-rule="evenodd" />
+        </svg>
+        <p class="text-lg font-semibold">FEATURE</p>
+      </div>
+      <p class="text-sm mb-4">Description</p>
+      <div class="flex justify-between text-sm underline">
+        <a href="{{ site.baseurl }}/genes">Take a Look</a>
+      </div>
+    </div>
   </div>
 </section>
-
 
 
 <!-- Chatbot -->
