@@ -68,7 +68,7 @@ layout: null
     <header class="bg-gray-900 shadow-md py-6 fixed top-0 w-full z-50">
       <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
         <h1 class="text-3xl font-bold text-accent">
-          <a href="{{ site.baseurl }}/">StockSmart</a>
+          <a href="{{ site.baseurl }}/" title="Go back home">StockSmart</a>
         </h1>
         <nav class="space-x-6 flex items-center text-base">
           <!-- Activities Dropdown -->
@@ -78,9 +78,11 @@ layout: null
 
           <!-- More links -->
         <nav class="space-x-6 flex items-center text-base">
-        <a href="{{ site.baseurl }}/wishlist/" class="text-gray-200 hover:text-accent">Wishlist</a>
-        <a href="{{ site.baseurl }}/restock/" class="text-gray-200 hover:text-accent">Restocked</a>
-        <a href="{{ site.baseurl }}/maps/" class="text-gray-200 hover:text-accent">Store Maps</a>
+        <a href="{{ site.baseurl }}/wishlist/" class="text-gray-200 hover:text-accent" title="Check your wishlist" >Wishlist </a>
+        <a href="{{ site.baseurl }}/restock/" class="text-gray-200 hover:text-accent" title="Find recently restocked items" >Restocked </a>
+        <a href="{{ site.baseurl }}/maps/" class="text-gray-200 hover:text-accent" title="Check nearby stores" >Store Maps </a>
+        <a href="{{ site.baseurl }}/about/" class="text-gray-200 hover:text-accent" title="Learn about our vision and meet our team">About StockSmart </a>
+
         <a id="signup-login" href="{{ site.baseurl }}/login" class="text-gray-300 font-extrabold tracking-tight hover:text-accent">Sign Up | Login</a>
       </nav>
       </header>
