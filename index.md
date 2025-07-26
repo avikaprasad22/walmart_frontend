@@ -326,11 +326,11 @@ menu: nav/home.html
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
           <path d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.382l6.553 3.276A1 1 0 0018 15V3z" clip-rule="evenodd" fill-rule="evenodd" />
         </svg>
-        <p class="text-lg font-semibold">FEATURE</p>
+        <p class="text-lg font-semibold">INVENTORY</p>
       </div>
-      <p class="text-sm mb-4">Description</p>
+      <p class="text-sm mb-4">Learn about what is in stock and what isn't before making your trip!</p>
       <div class="flex justify-between text-sm underline">
-        <a href="{{ site.baseurl }}/risk-quiz/">Take a Look</a>
+        <a href="{{ site.baseurl }}/inventory/">Take me there!</a>
       </div>
     </div>
     <!-- feature 2 - Yellow -->
@@ -339,11 +339,11 @@ menu: nav/home.html
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
           <path d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.382l6.553 3.276A1 1 0 0018 15V3z" clip-rule="evenodd" fill-rule="evenodd" />
         </svg>
-        <p class="text-lg font-semibold">FEATURE</p>
+        <p class="text-lg font-semibold">WISHLIST</p>
       </div>
-      <p class="text-sm mb-4">Description</p>
+      <p class="text-sm mb-4">Items you want not in stock? Add them to your wishlist and recieve updates when they are back in stores!</p>
       <div class="flex justify-between text-sm underline">
-        <a href="{{ site.baseurl }}/trivia">Take a Look</a>
+        <a href="{{ site.baseurl }}/wishlist/">Take me there!</a>
       </div>
     </div>
     <!-- feature 3 - White -->
