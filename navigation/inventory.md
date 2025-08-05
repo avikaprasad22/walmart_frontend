@@ -116,32 +116,26 @@ menu: nav/home.html
     const addProductModal = document.getElementById('addProductModal');
     const cancelBtn = document.getElementById('cancelBtn');
     const addProductBtn = document.getElementById('addProductBtn');
-    
     // Initialize event listeners
     document.addEventListener('DOMContentLoaded', () => {
         setupEventListeners();
     });
-
     function setupEventListeners() {
         const searchBar = document.getElementById('searchBar');
         const searchBtn = document.getElementById('searchBtn');
-        
         searchBtn.addEventListener('click', () => searchProducts());
         searchBar.addEventListener('keyup', (e) => {
             if (e.key === 'Enter') searchProducts();
         });
-        
         // Open modal when "+ Add Product" is clicked
         addProductBtn.addEventListener('click', () => {
             addProductModal.classList.remove('hidden');
         });
-        
         // Close modal when cancel is clicked
         cancelBtn.addEventListener('click', () => {
             addProductModal.classList.add('hidden');
             productForm.reset();
         });
-        
         // Handle form submission
         productForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -178,7 +172,6 @@ menu: nav/home.html
             }
         });
     }
-
     // Function to fetch and display all products
     async function loadAllProducts() {
         try {
@@ -193,7 +186,6 @@ menu: nav/home.html
             alert('Error loading products. Please try again.');
         }
     }
-
     // Function to render products in the table
     function renderProducts(products) {
         const tableBody = document.getElementById('productTable');
@@ -222,23 +214,19 @@ menu: nav/home.html
             </tr>
         `).join('');
     }
-
     // Call this when the page loads
     document.addEventListener('DOMContentLoaded', () => {
         loadProducts();
         setupEventListeners();
     });
-
     // Make these functions available globally
     window.editProduct = editProduct;
     window.deleteProduct = deleteProduct;
-
     // Placeholder for edit function
     async function editProduct(productId) {
         console.log('Edit product:', productId);
         // You'll implement this later
     }
-
     // Placeholder for delete function
     async function deleteProduct(productId) {
         if (confirm(`Are you sure you want to delete product ${productId}?`)) {
@@ -246,7 +234,6 @@ menu: nav/home.html
             // You'll implement this later
         }
     }
-
     async function searchProducts() {
         const query = document.getElementById('searchBar').value.trim();
         try {
@@ -267,11 +254,9 @@ menu: nav/home.html
             alert('Error searching products. Please try again.');
         }
     }
-
     async function loadProducts() {
         await searchProducts(); // This will load all products when query is empty
     }
-
     function closeModal() {
         addProductModal.classList.add('hidden');
     }
