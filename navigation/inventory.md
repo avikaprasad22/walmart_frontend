@@ -50,7 +50,6 @@ menu: nav/home.html
         🔔 Low Stock
       </button>
     </div>
-
     <!-- Product Table -->
     <div class="bg-white rounded-lg shadow overflow-hidden">
       <table class="min-w-full divide-y divide-gray-200">
@@ -121,6 +120,8 @@ menu: nav/home.html
         setupEventListeners();
     });
     function setupEventListeners() {
+        const lowStockBtn = document.getElementById('lowStockBtn');
+        lowStockBtn.addEventListener('click', () => loadLowStockProducts());
         const searchBar = document.getElementById('searchBar');
         const searchBtn = document.getElementById('searchBtn');
         searchBtn.addEventListener('click', () => searchProducts());
@@ -214,14 +215,14 @@ menu: nav/home.html
             return;
         }
         tableBody.innerHTML = products.map(product => `
-            <tr class="hover:bg-blue-50">
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${product.product_id}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${product.name}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${product.aisle}</td>
+            <tr class="hover:bg-blue-50 ${product.stock < 5 ? 'bg-red-50' : ''}">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ${product.stock < 5 ? 'text-red-800' : 'text-gray-900'}">${product.product_id}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm ${product.stock < 5 ? 'text-red-700 font-semibold' : 'text-gray-500'}">${product.name}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm ${product.stock < 5 ? 'text-red-700' : 'text-gray-500'}">${product.aisle}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm ${product.stock < 5 ? 'text-red-600 font-bold' : 'text-gray-500'}">
-                    ${product.stock}
+                    ${product.stock} ${product.stock < 5 ? '⚠️' : ''}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$${product.price.toFixed(2)}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm ${product.stock < 5 ? 'text-red-700' : 'text-gray-500'}">$${product.price.toFixed(2)}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     <button onclick="editProduct('${product.product_id}')" class="text-blue-600 hover:text-blue-800 mr-3">✏️ Edit</button>
                     <button onclick="deleteProduct('${product.product_id}')" class="text-red-600 hover:text-red-800">🗑️ Delete</button>
@@ -269,22 +270,25 @@ menu: nav/home.html
         if (confirm(`Are you sure you want to delete product ${productId}?`)) {
             try {
                 const response = await fetch(`${pythonURI}/api/inventory/?product_id=${productId}`, {
-                    method: 'DELETE'
-                });
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });  
                 if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.message || 'Failed to delete product');
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Failed to delete product');
                 }
                 const result = await response.json();
-                alert(result.message);
+                alert(result.message || 'Product deleted successfully');
                 await refreshProductTable();
             } catch (error) {
                 console.error('Error deleting product:', error);
                 alert(`Error: ${error.message}`);
             }
         }
-    }
-      async function searchProducts() {
+    }      
+    async function searchProducts() {
           const query = document.getElementById('searchBar').value.trim();
           try {
               let endpoint;
@@ -314,6 +318,21 @@ menu: nav/home.html
         document.getElementById('productId').readOnly = false;
         document.querySelector('h2').textContent = 'Add New Product';
       }
+    async function loadLowStockProducts() {
+        try {
+            const response = await fetch(`${pythonURI}/api/inventory/low-stock`);
+            if (!response.ok) {
+                throw new Error('Failed to load low stock products');
+            }
+            const products = await response.json();
+            renderProducts(products);
+            // Highlight that we're showing low stock items
+            document.getElementById('searchBar').value = 'Low Stock Items';
+        } catch (error) {
+            console.error('Error loading low stock products:', error);
+            alert('Error loading low stock products. Please try again.');
+        }
+    }
 </script> 
 </body>
 </html>
