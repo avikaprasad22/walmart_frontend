@@ -78,11 +78,26 @@ menu: nav/home.html
       <form id="productForm">
         <input type="hidden" id="editProductId">
         <div class="space-y-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700">Product ID</label>
-            <input type="text" id="productId" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-          </div>
-          <!-- Other form fields (name, stock, etc.) -->
+              <div>
+                  <label class="block text-sm font-medium text-gray-700">Product ID</label>
+                  <input type="text" id="productId" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+              </div>
+              <div>
+                  <label class="block text-sm font-medium text-gray-700">Product Name</label>
+                  <input type="text" id="productName" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+              </div>
+              <div>
+                  <label class="block text-sm font-medium text-gray-700">Stock</label>
+                  <input type="number" id="productStock" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+              </div>
+              <div>
+                  <label class="block text-sm font-medium text-gray-700">Aisle</label>
+                  <input type="text" id="productAisle" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+              </div>
+              <div>
+                  <label class="block text-sm font-medium text-gray-700">Price</label>
+                  <input type="number" step="0.01" id="productPrice" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+              </div>
         </div>
         <div class="mt-6 flex justify-end space-x-3">
           <button type="button" id="cancelBtn" class="px-4 py-2 border rounded-md">Cancel</button>
@@ -91,7 +106,63 @@ menu: nav/home.html
       </form>
     </div>
   </div>
-
-  <script src="/assets/js/inventory.js"></script>
+  <script type="module">
+    import { pythonURI, fetchOptions } from '{{ site.baseurl }}/assets/js/api/config.js';
+    // DOM Elements
+    const productForm = document.getElementById('productForm');
+    const addProductModal = document.getElementById('addProductModal');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const addProductBtn = document.getElementById('addProductBtn');
+    // Initialize event listeners
+    document.addEventListener('DOMContentLoaded', () => {
+        setupEventListeners();
+    });
+    function setupEventListeners() {
+        // Open modal when "+ Add Product" is clicked
+        addProductBtn.addEventListener('click', () => {
+            addProductModal.classList.remove('hidden');
+        });
+        // Close modal when cancel is clicked
+        cancelBtn.addEventListener('click', () => {
+            addProductModal.classList.add('hidden');
+            productForm.reset();
+        });
+        // Handle form submission
+      productForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const productData = {
+              product_id: document.getElementById('productId').value,
+              name: document.getElementById('productName').value,
+              stock: parseInt(document.getElementById('productStock').value),
+              aisle: document.getElementById('productAisle').value,
+              price: parseFloat(document.getElementById('productPrice').value)
+          };
+          try {
+              const response = await fetch(`${pythonURI}/api/inventory/`, {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(productData)
+              });
+              const result = await response.json();
+              if (!response.ok) {
+                  // Handle specific error cases
+                  if (response.status === 409) {
+                      throw new Error(`Product ID ${productData.product_id} already exists. Please use a different ID.`);
+                  }
+                  throw new Error(result.message || 'Failed to add product');
+              }
+              alert(`Product added successfully! ID: ${result.product_id}`);
+              closeModal();
+              await refreshProductTable();
+          } catch (error) {
+              console.error('Error:', error);
+              // Show user-friendly error message
+              alert(`Error: ${error.message}`);
+          }
+      });
+    }
+</script>
 </body>
 </html>
