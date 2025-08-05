@@ -106,7 +106,10 @@ menu: nav/home.html
       </form>
     </div>
   </div>
-  <script type="module">
+  <script type="module">    
+    async function refreshProductTable() {
+      await loadAllProducts();
+    }
     import { pythonURI, fetchOptions } from '{{ site.baseurl }}/assets/js/api/config.js';
     // DOM Elements
     const productForm = document.getElementById('productForm');
@@ -162,6 +165,68 @@ menu: nav/home.html
               alert(`Error: ${error.message}`);
           }
       });
+    }
+    // Function to fetch and display all products
+    async function loadAllProducts() {
+        try {
+            const response = await fetch(`${pythonURI}/api/inventory/all`);
+            if (!response.ok) {
+                throw new Error('Failed to load products');
+            }
+            const products = await response.json();
+            renderProducts(products);
+        } catch (error) {
+            console.error('Error loading products:', error);
+            alert('Error loading products. Please try again.');
+        }
+    }
+    // Function to render products in the table
+    function renderProducts(products) {
+        const tableBody = document.getElementById('productTable');
+        if (!products || products.length === 0) {
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+                        No products found
+                    </td>
+                </tr>`;
+            return;
+        }
+        tableBody.innerHTML = products.map(product => `
+            <tr class="hover:bg-blue-50">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${product.product_id}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${product.name}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${product.aisle}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm ${product.stock < 5 ? 'text-red-600 font-bold' : 'text-gray-500'}">
+                    ${product.stock}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$${product.price.toFixed(2)}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <button onclick="editProduct('${product.product_id}')" class="text-blue-600 hover:text-blue-800 mr-3">✏️ Edit</button>
+                    <button onclick="deleteProduct('${product.product_id}')" class="text-red-600 hover:text-red-800">🗑️ Delete</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+    // Call this when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        loadAllProducts();
+        setupEventListeners();
+    });
+    // Make these functions available globally
+    window.editProduct = editProduct;
+    window.deleteProduct = deleteProduct;
+    // Placeholder for edit function
+      async function editProduct(productId) {
+          console.log('Edit product:', productId);
+          // You'll implement this later
+      }
+      // Placeholder for delete function
+      async function deleteProduct(productId) {
+          if (confirm(`Are you sure you want to delete product ${productId}?`)) {
+              console.log('Delete product:', productId);
+              // You'll implement this later
+          }
     }
 </script>
 </body>
