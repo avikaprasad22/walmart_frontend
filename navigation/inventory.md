@@ -138,39 +138,54 @@ menu: nav/home.html
         });
         // Handle form submission
         productForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const productData = {
-                product_id: document.getElementById('productId').value,
-                name: document.getElementById('productName').value,
-                stock: parseInt(document.getElementById('productStock').value),
-                aisle: document.getElementById('productAisle').value,
-                price: parseFloat(document.getElementById('productPrice').value)
-            };
-            try {
-                const response = await fetch(`${pythonURI}/api/inventory/`, {
+    e.preventDefault();
+        const formData = {
+            product_id: document.getElementById('productId').value,
+            name: document.getElementById('productName').value,
+            stock: parseInt(document.getElementById('productStock').value),
+            aisle: document.getElementById('productAisle').value,
+            price: parseFloat(document.getElementById('productPrice').value)
+        };
+        const isEdit = document.getElementById('editProductId').value;
+        try {
+            let response;
+            if (isEdit) {
+                // Update existing product
+                response = await fetch(`${pythonURI}/api/inventory/`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        product_id: isEdit,
+                        ...formData
+                    })
+                });
+            } else {
+                // Create new product
+                response = await fetch(`${pythonURI}/api/inventory/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(productData)
+                    body: JSON.stringify(formData)
                 });
-                const result = await response.json();
-                if (!response.ok) {
-                    // Handle specific error cases
-                    if (response.status === 409) {
-                        throw new Error(`Product ID ${productData.product_id} already exists. Please use a different ID.`);
-                    }
-                    throw new Error(result.message || 'Failed to add product');
-                }
-                alert(`Product added successfully! ID: ${result.product_id}`);
-                closeModal();
-                await refreshProductTable();
-            } catch (error) {
-                console.error('Error:', error);
-                // Show user-friendly error message
-                alert(`Error: ${error.message}`);
             }
-        });
+            const result = await response.json();
+            if (!response.ok) {
+                if (response.status === 409) {
+                    throw new Error(`Product ID ${formData.product_id} already exists. Please use a different ID.`);
+                }
+                throw new Error(result.message || 'Failed to save product');
+            }
+            alert(`Product ${isEdit ? 'updated' : 'added'} successfully!`);
+            closeModal();
+            await refreshProductTable();
+        } catch (error) {
+            console.error('Error:', error);
+            alert(`Error: ${error.message}`);
+        }
+    });
     }
     // Function to fetch and display all products
     async function loadAllProducts() {
@@ -223,43 +238,82 @@ menu: nav/home.html
     window.editProduct = editProduct;
     window.deleteProduct = deleteProduct;
     // Placeholder for edit function
+    // Edit Product Function
     async function editProduct(productId) {
-        console.log('Edit product:', productId);
-        // You'll implement this later
+        try {
+            // Fetch the existing product data
+            const response = await fetch(`${pythonURI}/api/inventory/?product_id=${productId}`);
+            if (!response.ok) {
+                throw new Error('Failed to load product details');
+            }
+            const product = await response.json();
+            // Populate the form
+            document.getElementById('editProductId').value = product.product_id;
+            document.getElementById('productId').value = product.product_id;
+            document.getElementById('productName').value = product.name;
+            document.getElementById('productStock').value = product.stock;
+            document.getElementById('productAisle').value = product.aisle;
+            document.getElementById('productPrice').value = product.price;
+            // Change form to edit mode
+            document.querySelector('h2').textContent = 'Edit Product';
+            document.getElementById('productId').readOnly = true; // Disable ID editing
+            // Open the modal
+            addProductModal.classList.remove('hidden');
+        } catch (error) {
+            console.error('Error loading product:', error);
+            alert(`Error: ${error.message}`);
+        }
     }
-    // Placeholder for delete function
+    // Delete Product Function
     async function deleteProduct(productId) {
         if (confirm(`Are you sure you want to delete product ${productId}?`)) {
-            console.log('Delete product:', productId);
-            // You'll implement this later
+            try {
+                const response = await fetch(`${pythonURI}/api/inventory/?product_id=${productId}`, {
+                    method: 'DELETE'
+                });
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message || 'Failed to delete product');
+                }
+                const result = await response.json();
+                alert(result.message);
+                await refreshProductTable();
+            } catch (error) {
+                console.error('Error deleting product:', error);
+                alert(`Error: ${error.message}`);
+            }
         }
     }
-    async function searchProducts() {
-        const query = document.getElementById('searchBar').value.trim();
-        try {
-            let endpoint;
-            if (query) {
-                endpoint = `${pythonURI}/api/inventory/search?query=${encodeURIComponent(query)}`;
-            } else {
-                endpoint = `${pythonURI}/api/inventory/all`;
-            }
-            const response = await fetch(endpoint);
-            if (!response.ok) {
-                throw new Error('Failed to search products');
-            }
-            const products = await response.json();
-            renderProducts(products);
-        } catch (error) {
-            console.error('Search error:', error);
-            alert('Error searching products. Please try again.');
-        }
-    }
-    async function loadProducts() {
-        await searchProducts(); // This will load all products when query is empty
-    }
-    function closeModal() {
+      async function searchProducts() {
+          const query = document.getElementById('searchBar').value.trim();
+          try {
+              let endpoint;
+              if (query) {
+                  endpoint = `${pythonURI}/api/inventory/search?query=${encodeURIComponent(query)}`;
+              } else {
+                  endpoint = `${pythonURI}/api/inventory/all`;
+              }
+              const response = await fetch(endpoint);
+              if (!response.ok) {
+                  throw new Error('Failed to search products');
+              }
+              const products = await response.json();
+              renderProducts(products);
+          } catch (error) {
+              console.error('Search error:', error);
+              alert('Error searching products. Please try again.');
+          }
+      }
+      async function loadProducts() {
+          await searchProducts(); // This will load all products when query is empty
+      }
+      function closeModal() {
         addProductModal.classList.add('hidden');
-    }
-</script>
+        productForm.reset();
+        document.getElementById('editProductId').value = '';
+        document.getElementById('productId').readOnly = false;
+        document.querySelector('h2').textContent = 'Add New Product';
+      }
+</script> 
 </body>
 </html>
