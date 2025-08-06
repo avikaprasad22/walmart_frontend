@@ -280,6 +280,105 @@ menu: nav/home.html
   50% { clip-path: inset(0); }
   100% { clip-path: inset(0 0 0 100%); }
 }
+
+/* OUR VISION BUTTON */
+.wrapper {
+  perspective: 500px;
+  transform: rotatex(10deg);
+  animation: rotateAngle 6s linear infinite;
+  margin: auto;
+  width: auto;
+}
+
+button {
+  display: block;
+  position: relative;
+  margin: 0.5em 0;
+  padding: 1.4em 5em; /* Bigger height and much longer width */
+  cursor: pointer;
+  background: #FFFFFF;
+  border: none;
+  border-radius: 0.5em;
+  text-transform: uppercase;
+  font-size: 24px;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  mix-blend-mode: color-dodge;
+  perspective: 500px;
+  transform-style: preserve-3d;
+  color: #003366; /* Dark Walmart Blue */
+}
+
+button:before, button:after {
+  --z: 0px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  content: "";
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  mix-blend-mode: inherit;
+  border-radius: inherit;
+  transform-style: preserve-3d;
+  transform: translate3d(calc(var(--z) * 0px), calc(var(--z) * 0px), calc(var(--z) * 0px));
+}
+
+button span {
+  mix-blend-mode: none;
+  display: block;
+  color: inherit;
+}
+
+button:after {
+  background-color: #FFD700; /* Yellow */
+}
+
+button:before {
+  background-color: #005BBB; /* Walmart Blue */
+}
+
+button:hover {
+  background-color: #FFE347; /* Lighter yellow on hover */
+  color: #005BBB; /* Blue text on yellow background */
+  transition: background 0.3s 0.1s;
+}
+
+button:active {
+  background-color: #FFD700; /* deeper yellow */
+  color: #003366; /* Darker blue for good contrast */
+}
+
+button:hover:before {
+  --z: 0.04;
+  animation: translateWobble 2.2s ease forwards;
+}
+
+button:hover:after {
+  --z: -0.06;
+  animation: translateWobble 2.2s ease forwards;
+}
+
+@keyframes rotateAngle {
+  0% { transform: rotateY(0deg) rotateX(10deg); }
+  25% { transform: rotateY(20deg) rotateX(10deg); }
+  50% { transform: rotateY(0deg) rotateX(10deg); }
+  75% { transform: rotateY(-20deg) rotateX(10deg); }
+  100% { transform: rotateY(0deg) rotateX(10deg); }
+}
+
+@keyframes translateWobble {
+  0% { opacity: 0; transform: translate3d(calc(var(--z) * 0px), calc(var(--z) * 0px), calc(var(--z) * 0px)); }
+  16% { transform: translate3d(calc(var(--z) * 160px), calc(var(--z) * 160px), calc(var(--z) * 160px)); }
+  28% { opacity: 1; transform: translate3d(calc(var(--z) * 70px), calc(var(--z) * 70px), calc(var(--z) * 70px)); }
+  44% { transform: translate3d(calc(var(--z) * 130px), calc(var(--z) * 130px), calc(var(--z) * 130px)); }
+  59% { transform: translate3d(calc(var(--z) * 85px), calc(var(--z) * 85px), calc(var(--z) * 85px)); }
+  73% { transform: translate3d(calc(var(--z) * 110px), calc(var(--z) * 110px), calc(var(--z) * 110px)); }
+  88% { opacity: 1; transform: translate3d(calc(var(--z) * 90px), calc(var(--z) * 90px), calc(var(--z) * 90px)); }
+  100% { opacity: 1; transform: translate3d(calc(var(--z) * 100px), calc(var(--z) * 100px), calc(var(--z) * 100px)); }
+}
   </style>
 </head>
 
@@ -317,51 +416,16 @@ menu: nav/home.html
   </div>
 </section>
 
-<section id="ai-solutions" class="py-20 bg-[#1e1e1e] text-white">
-  <h2 class="text-4xl font-extrabold text-center mb-12">Explore Our Interactive Tools</h2>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto px-6">
-    <!-- feature 1 - Blue -->
-    <div class="rounded-xl bg-[#0071ce] p-6 text-white shadow-xl flex flex-col justify-between min-h-[250px]">
-      <div class="flex items-center gap-2 mb-4">
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.382l6.553 3.276A1 1 0 0018 15V3z" clip-rule="evenodd" fill-rule="evenodd" />
-        </svg>
-        <p class="text-lg font-semibold">INVENTORY</p>
-      </div>
-      <p class="text-sm mb-4">Learn about what is in stock and what isn't before making your trip!</p>
-      <div class="flex justify-between text-sm underline">
-        <a href="{{ site.baseurl }}/inventory/">Take me there!</a>
-      </div>
-    </div>
-    <!-- feature 2 - Yellow -->
-    <div class="rounded-xl bg-[#ffc220] text-black p-6 shadow-xl flex flex-col justify-between min-h-[250px]">
-      <div class="flex items-center gap-2 mb-4">
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.382l6.553 3.276A1 1 0 0018 15V3z" clip-rule="evenodd" fill-rule="evenodd" />
-        </svg>
-        <p class="text-lg font-semibold">ANALYTICS</p>
-      </div>
-      <p class="text-sm mb-4">Want to know how your business is doing. Checkout our net profit calculator to analyze your performance in the market!</p>
-      <div class="flex justify-between text-sm underline">
-        <a href="{{ site.baseurl }}/analytics/">Take me there!</a>
-      </div>
-    </div>
-    <!-- feature 3 - White -->
-    <div class="rounded-xl bg-white text-black p-6 shadow-xl flex flex-col justify-between min-h-[250px]">
-      <div class="flex items-center gap-2 mb-4">
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.382l6.553 3.276A1 1 0 0018 15V3z" clip-rule="evenodd" fill-rule="evenodd" />
-        </svg>
-        <p class="text-lg font-semibold">FEATURE</p>
-      </div>
-      <p class="text-sm mb-4">Description</p>
-      <div class="flex justify-between text-sm underline">
-        <a href="{{ site.baseurl }}/genes">Take a Look</a>
-      </div>
+<!-- Our Vision Section -->
+<section class="py-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="flex justify-center">
+      <a href="{{ site.baseurl }}/about/" title="Learn about our website, vision, and team" class="wrapper">
+        <button><span>Learn About Our Website, Vision, and Team</span></button>
+      </a>
     </div>
   </div>
 </section>
-
 
 <!-- Chatbot -->
 <button id="help-button">Need Help?</button>
